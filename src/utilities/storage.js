@@ -8,6 +8,7 @@ export function useLocalStorage(key, initialValue) {
         return JSON.parse(stored);
       } catch (err) {
         console.error('localStorage error:', key, stored, err);
+        return initialValue;
       }
     }
     window.localStorage.setItem(key, JSON.stringify(initialValue));

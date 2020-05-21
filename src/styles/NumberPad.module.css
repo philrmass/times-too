@@ -1,0 +1,12 @@
+.main {
+  height: 100%;
+  border: var(--border);
+  background: var(--bg-number-pad);
+  font-size: var(--size-number-pad);
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.button {
+  border: var(--border);
+}

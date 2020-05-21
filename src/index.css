@@ -1,4 +1,8 @@
 :root {
+  --bg-number-pad: #c8c8c8;
+  --bg-blue: #80a8d8;
+  --border: 1px solid white;
+  --size-number-pad: 34px;
 }
 
 * {
