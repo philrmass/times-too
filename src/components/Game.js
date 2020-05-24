@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import styles from '../styles/Game.module.css';
 
 function Game({
-  isPractice,
   isTest,
   game,
   version,
@@ -18,7 +17,7 @@ function Game({
     const secsStr = `0${secs}`.slice(-2);
 
     return (
-      <div>
+      <div className={styles.time}>
         {`${mins}:${secsStr}`}
       </div>
     );
@@ -30,7 +29,7 @@ function Game({
     }
 
     return (
-      <div>
+      <div className={styles.questions}>
         {game.question + 1}/{game.questions}
       </div>
     );
@@ -39,12 +38,9 @@ function Game({
   function buildProblem() {
     return (
       <div className={styles.problem}>
-        <div>
-          {game.first}
-        </div>
-        <div className={styles.problemBottom}>
-          {`x ${game.second}`}
-        </div>
+        <div>{game.first}</div>
+        <div>{`x ${game.second}`}</div>
+        <div className={styles.line}></div>
         <div className={styles.answer}>
           {game.input || ' '}
         </div>
@@ -75,16 +71,10 @@ function Game({
   return (
     <div className={styles.main}>
       <div className={styles.game}>
-        <div className={styles.left}>
-          {buildTime()}
-        </div>
-        <div className={styles.center}>
-          {buildProblem()}
-        </div>
-        <div className={styles.right}>
-          {buildQuestions()}
-          {buildVersion()}
-        </div>
+        {buildTime()}
+        {buildProblem()}
+        {buildQuestions()}
+        {buildVersion()}
       </div>
       {buildMessage()}
     </div>
@@ -92,7 +82,6 @@ function Game({
 }
 
 Game.propTypes = {
-  isPractice: PropTypes.bool.isRequired,
   isTest: PropTypes.bool.isRequired,
   game: PropTypes.object.isRequired,
   version: PropTypes.string.isRequired,

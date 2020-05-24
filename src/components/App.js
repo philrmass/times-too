@@ -105,6 +105,7 @@ function gameReducer(state, action) {
       if (action.remaining <= 0) {
         return {
           ...state,
+          remaining: 0,
           message: 'Time is up', //??? results message
         };
       }
@@ -139,15 +140,15 @@ function pick(values) {
 }
 
 function App() {
-  const version = '0.1';
+  const version = '0.2';
   const factsOptions = allFacts();
   const questionsOptions = [10, 20, 40, 80];
   const perMinuteOptions = [4, 8, 12, 16, 20, 24];
   const [game, dispatch] = useReducer(gameReducer, initGame());
-  const [timer, setTimer] = useState(null);
+  const [, setTimer] = useState(null);
   const [facts, setFacts] = useLocalStorage('TimesFacts', [2, 3, 4]);
   const [questions, setQuestions] = useLocalStorage('TimesQuestions', 10);
-  const [perMinute, setPerMinute] = useLocalStorage('TimesPerMinute', 16);
+  const [perMinute, setPerMinute] = useLocalStorage('TimesPerMinute', 24);
   const isPractice = false;
   const isTest = game.remaining > 0;
 
@@ -203,7 +204,6 @@ function App() {
         />
         <div className={styles.main}>
           <Game
-            isPractice={isPractice}
             isTest={isTest}
             game={game}
             version={version}
