@@ -6,8 +6,13 @@
   --bg-blue: #80a8d8;
   --text-white: #e8e8e8;
   --text-gray: #686868;
+  --text-black: #181818;
   --border: 1px solid white;
+  --size-time: 32px;
+  --size-problem: 76px;
+  --size-message: 24px;
   --size-number-pad: 34px;
+  --size-version: 12px;
 }
 
 * {
@@ -18,5 +23,6 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
+  color: var(--text-black);
   font-family: "Helvetica", sans-serif;
 }

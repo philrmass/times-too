@@ -3,23 +3,34 @@ import PropTypes from 'prop-types';
 import styles from '../styles/Game.module.css';
 
 function Game({
+  isPractice,
+  isTest,
   game,
+  version,
 }) {
   function buildTime() {
+    if (!isTest) {
+      return <div></div>;
+    }
+
     const mins = Math.floor(game.remaining / 60);
     const secs = game.remaining - (60 * mins);
     const secsStr = `0${secs}`.slice(-2);
 
     return (
-      <div className={styles.time}>
+      <div>
         {`${mins}:${secsStr}`}
       </div>
     );
   }
 
   function buildQuestions() {
+    if (!isTest) {
+      return <div></div>;
+    }
+
     return (
-      <div className={styles.questions}>
+      <div>
         {game.question + 1}/{game.questions}
       </div>
     );
@@ -28,7 +39,15 @@ function Game({
   function buildProblem() {
     return (
       <div className={styles.problem}>
-        {`${game.first}\nx${game.second}\n---\n${game.input}`}
+        <div>
+          {game.first}
+        </div>
+        <div className={styles.problemBottom}>
+          {`x ${game.second}`}
+        </div>
+        <div className={styles.answer}>
+          {game.input || ' '}
+        </div>
       </div>
     );
   }
@@ -45,22 +64,38 @@ function Game({
     );
   }
 
+  function buildVersion() {
+    return (
+      <div className={styles.version}>
+        version {version}
+      </div>
+    );
+  }
+
   return (
     <div className={styles.main}>
       <div className={styles.game}>
-        {buildTime()}
-        {buildProblem()}
-        {buildQuestions()}
+        <div className={styles.left}>
+          {buildTime()}
+        </div>
+        <div className={styles.center}>
+          {buildProblem()}
+        </div>
+        <div className={styles.right}>
+          {buildQuestions()}
+          {buildVersion()}
+        </div>
       </div>
-      <div className={styles.message}>
-        {buildMessage()}
-      </div>
+      {buildMessage()}
     </div>
   );
 }
 
 Game.propTypes = {
+  isPractice: PropTypes.bool.isRequired,
+  isTest: PropTypes.bool.isRequired,
   game: PropTypes.object.isRequired,
+  version: PropTypes.string.isRequired,
 };
 
 export default Game;

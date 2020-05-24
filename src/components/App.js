@@ -1,3 +1,9 @@
+//??? fix layout with version
+//??? fix start, practice buttons
+//??? make options buttons
+//??? fix all start & stop states
+//??? how to stop timer on quit
+//??? add practice to game state
 import React, { useReducer, useState } from 'react';
 import { useLocalStorage } from '../utilities/storage';
 import Facts from './Facts';
@@ -15,20 +21,33 @@ function allFacts() {
 function initGame() {
   return {
     facts: [],
-    questions: 0,
     question: 0,
-    input: '',
+    questions: 0,
     first: 0,
     second: 0,
+    input: '',
+    problems: [],
     remaining: 0,
-    message: 'Select the options above and then press Start to begin',
+    message: getInitMessage(),
   };
+}
+
+function getInitMessage() {
+  return `Select the facts to test,
+  the number of questions,
+  and the questions per minute,
+  and then press 'Start Test'
+
+  Or press 'Practice'
+  to just practice your facts
+
+  Use the number keys on the right 
+  to enter your answer`;
 }
 
 function gameReducer(state, action) {
   switch (action.type) {
-    case 'start':
-      console.log('START');
+    case 'test': {
       const [first, second] = pickProblem(action.facts);
       return {
         ...initGame(),
@@ -38,27 +57,67 @@ function gameReducer(state, action) {
         second,
         message: '',
       };
+    }
     case 'input':
-      console.log('INPUT', action);
-      return state;
+      return {
+        ...state,
+        input: `${state.input}${action.value}`,
+      };
     case 'clear':
-      console.log('CLEAR', action);
-      return state;
-    case 'submit':
-      console.log('SUBMIT', action);
-      return state;
+      return {
+        ...state,
+        input: '',
+      };
+    case 'submit': {
+      const answer = parseInt(state.input);
+      const correct = (answer === state.first * state.second);
+      const problem = {
+        first: state.first,
+        second: state.second,
+        answer,
+        correct,
+      };
+      const problems = [...state.problems, problem];
+
+      const question = state.question + 1;
+      if (question >= state.questions) {
+        const message = 'You are done'; //??? results message
+        return {
+          ...state,
+          question,
+          problems,
+          message,
+        };
+      }
+
+      const [first, second] = pickProblem(state.facts);
+      return {
+        ...state,
+        question,
+        first,
+        second,
+        input: '',
+        problems,
+      };
+    }
     case 'setTime':
-      console.log('SET-TIME', action.remaining);
+      if (action.remaining <= 0) {
+        console.log(' DONE');
+        return {
+          ...state,
+          message: 'Time is up', //??? results message
+        };
+      }
+
       return {
         ...state,
         remaining: action.remaining,
       };
-    case 'quit':
-      console.log('QUIT');
+    case 'stop':
       return {
         ...state,
         remaining: 0,
-        message: 'You quit', //??? add custom message
+        message: 'You quit', //??? quit, results message
       };
     default:
       return state;
@@ -76,42 +135,54 @@ function pickProblem(facts) {
 
 function pick(values) {
   const index = Math.floor(values.length * Math.random());
-  console.log(`  PICK ${values[index]} from [${values}]`);
   return values[index];
 }
 
 function App() {
+  const version = '0.1';
   const factsOptions = allFacts();
-  const questionsOptions = [20, 40, 60, 80, 100];
+  const questionsOptions = [10, 20, 40, 80];
   const perMinuteOptions = [4, 8, 12, 16, 20, 24];
   const [game, dispatch] = useReducer(gameReducer, initGame());
-  const [endTime, setEndTime] = useState(0);
   const [facts, setFacts] = useLocalStorage('TimesFacts', [2, 3, 4]);
-  const [questions, setQuestions] = useLocalStorage('TimesQuestions', 80);
+  const [questions, setQuestions] = useLocalStorage('TimesQuestions', 10);
   const [perMinute, setPerMinute] = useLocalStorage('TimesPerMinute', 16);
+  const isPractice = false;
+  const isTest = game.remaining > 0;
+  console.log('IT', isTest);
 
   function startTimer() {
     const msPerS = 1000;
     const msPerMin = 60 * msPerS;
     const length = msPerMin * (questions / perMinute);
-    const now = Date.now();
-    const end = now + length;
+    const end = Date.now() + length;
+    const remaining = Math.ceil(length / msPerS);
 
-    setEndTime(end);
-    dispatch({ type: 'setTime', remaining: Math.ceil(length / msPerS) });
+    const updateTime = () => {
+      const remainingMs = end - Date.now();
+      const remaining = Math.ceil(remainingMs / msPerS);
+
+      //??? check game is still playing
+      dispatch({ type: 'setTime', remaining });
+      if (remaining > 0) {
+        setTimeout(updateTime, 1000);
+      }
+    };
+
+    dispatch({ type: 'setTime', remaining });
+    setTimeout(updateTime, 1000);
   }
 
-  function start() {
-    dispatch({ type: 'start', facts, questions });
+  function startTest() {
+    dispatch({ type: 'test', facts, questions });
     startTimer();
   }
 
-  function quit() {
-    //??? stop timer
-    dispatch({ type: 'quit' });
+  function stop() {
+    //??? stop timer if test
+    dispatch({ type: 'stop' });
   }
 
-  console.log('  time', endTime && Math.round((endTime - Date.now()) / 1000));
   return (
     <div className={styles.page}>
       <div className={styles.leftColumn}>
@@ -121,13 +192,17 @@ function App() {
           setFacts={setFacts}
         />
         <GameControls
-          isPlaying={game.remaining > 0}
-          start={start}
-          quit={quit}
+          isPractice={isPractice}
+          isTest={isTest}
+          startTest={startTest}
+          stop={stop}
         />
         <div className={styles.main}>
           <Game
+            isPractice={isPractice}
+            isTest={isTest}
             game={game}
+            version={version}
           />
         </div>
       </div>
@@ -145,8 +220,8 @@ function App() {
         <div className={styles.main}>
           <NumberPad
             input={(value) => dispatch({ type: 'input', value })}
-            clear={() => dispatch({ type: 'input', value: '' })}
-            submit={(value) => dispatch({ type: 'submit', value })}
+            clear={() => dispatch({ type: 'clear' })}
+            submit={() => dispatch({ type: 'submit' })}
           />
         </div>
       </div>

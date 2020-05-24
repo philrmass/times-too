@@ -14,6 +14,7 @@ function NumberPad({
       <button
         key={number}
         className={styles.button}
+        onClick={() => input(`${number}`)}
       >
         {number}
       </button>
@@ -24,12 +25,14 @@ function NumberPad({
     <div className={styles.main}>
       {buildNumberButtons()}
       <button
-        className={styles.button}
+        className={`${styles.button} ${styles.clear}`}
+        onClick={clear}
       >
         Clear
       </button>
       <button
-        className={styles.button}
+        className={`${styles.button} ${styles.ok}`}
+        onClick={submit}
       >
         OK
       </button>

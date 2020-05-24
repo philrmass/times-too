@@ -1,26 +1,73 @@
 .main {
+  position: relative;
   height: 100%;
-  white-space: pre;
+  overflow: hidden;
 }
 
 .game {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  height: 100%;
+  font-size: var(--size-time);
+  display: flex;
+  justify-content: space-between;
 }
 
-.time {
-  color: green;
+.left {
+  padding-top: 16px;
+  padding-left: 32px;
+}
+
+.top {
+  display: flex;
+  font-size: var(--size-time);
+  justify-content: space-between;
+}
+
+.center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.right {
+  padding-top: 16px;
+  padding-right: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .problem {
-  color: blue;
+  font-size: var(--size-problem);
+  text-align: right;
 }
 
-.questions {
-  color: red;
+.problemBottom {
+  border-bottom: 4px solid var(--text-black);
+}
+
+.answer {
+  margin-top: 8px;
+  white-space: pre;
+}
+
+.version {
+  text-align: right;
+  color: var(--text-gray);
+  font-size: var(--size-version);
 }
 
 .message {
-  margin-top: 50px;
-  color: purple;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 64px;
+  background: white;
+  font-size: var(--size-message);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  white-space: pre;
 }

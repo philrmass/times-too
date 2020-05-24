@@ -3,34 +3,36 @@ import PropTypes from 'prop-types';
 import styles from '../styles/GameControls.module.css';
 
 function GameControls({
-  isPlaying,
-  start,
-  quit,
+  isPractice,
+  isTest,
+  startTest,
+  stop,
 }) {
   return (
     <div className={styles.main}>
       <button
-        className={`${styles.button} ${styles.quit}`}
-        disabled={!isPlaying}
-        onClick={quit}
+        className={`${styles.button} ${styles.stop}`}
+        disabled={!isTest}
+        onClick={stop}
       >
-        Quit
+        Practice
       </button>
       <button
-        className={`${styles.button} ${styles.start}`}
-        disabled={isPlaying}
-        onClick={start}
+        className={`${styles.button} ${styles.startTest}`}
+        disabled={isTest}
+        onClick={startTest}
       >
-        Start
+        Start Test
       </button>
     </div>
   );
 }
 
 GameControls.propTypes = {
-  isPlaying: PropTypes.bool.isRequired,
-  start: PropTypes.func.isRequired,
-  quit: PropTypes.func.isRequired,
+  isPractice: PropTypes.bool.isRequired,
+  isTest: PropTypes.bool.isRequired,
+  startTest: PropTypes.func.isRequired,
+  stop: PropTypes.func.isRequired,
 };
 
 export default GameControls;

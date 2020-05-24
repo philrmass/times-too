@@ -10,3 +10,13 @@
 .button {
   border: var(--border);
 }
+
+.clear {
+  background: white;
+  color: var(--text-black);
+}
+
+.ok {
+  background: var(--bg-blue);
+  color: var(--text-black);
+}
