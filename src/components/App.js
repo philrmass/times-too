@@ -4,6 +4,7 @@
 //??? fix all start & stop states
 //??? how to stop timer on quit
 //??? add practice to game state
+//??? improve alignment of timer
 import React, { useReducer, useState } from 'react';
 import { useLocalStorage } from '../utilities/storage';
 import Facts from './Facts';
@@ -102,7 +103,6 @@ function gameReducer(state, action) {
     }
     case 'setTime':
       if (action.remaining <= 0) {
-        console.log(' DONE');
         return {
           ...state,
           message: 'Time is up', //??? results message
@@ -144,33 +144,34 @@ function App() {
   const questionsOptions = [10, 20, 40, 80];
   const perMinuteOptions = [4, 8, 12, 16, 20, 24];
   const [game, dispatch] = useReducer(gameReducer, initGame());
+  const [timer, setTimer] = useState(null);
   const [facts, setFacts] = useLocalStorage('TimesFacts', [2, 3, 4]);
   const [questions, setQuestions] = useLocalStorage('TimesQuestions', 10);
   const [perMinute, setPerMinute] = useLocalStorage('TimesPerMinute', 16);
   const isPractice = false;
   const isTest = game.remaining > 0;
-  console.log('IT', isTest);
 
   function startTimer() {
     const msPerS = 1000;
     const msPerMin = 60 * msPerS;
     const length = msPerMin * (questions / perMinute);
     const end = Date.now() + length;
-    const remaining = Math.ceil(length / msPerS);
+    //const remaining = Math.ceil(length / msPerS);
 
-    const updateTime = () => {
+    function updateTime() {
       const remainingMs = end - Date.now();
       const remaining = Math.ceil(remainingMs / msPerS);
 
-      //??? check game is still playing
       dispatch({ type: 'setTime', remaining });
       if (remaining > 0) {
-        setTimeout(updateTime, 1000);
+        setTimer((timer) => {
+          clearTimeout(timer);
+          return setTimeout(updateTime, 1000);
+        });
       }
-    };
+    }
 
-    dispatch({ type: 'setTime', remaining });
-    setTimeout(updateTime, 1000);
+    updateTime();
   }
 
   function startTest() {
@@ -179,7 +180,10 @@ function App() {
   }
 
   function stop() {
-    //??? stop timer if test
+    setTimer((timer) => {
+      clearTimeout(timer);
+      return null;
+    });
     dispatch({ type: 'stop' });
   }
 
