@@ -9,10 +9,12 @@
   --text-black: #181818;
   --border: 1px solid white;
   --size-time: 32px;
+  --size-title: 24px;
   --size-problem: 76px;
   --size-message: 24px;
   --size-number-pad: 34px;
   --size-version: 12px;
+  --height-button: 3em;
 }
 
 * {

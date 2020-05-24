@@ -1,5 +1,26 @@
 .main {
-  height: 100px;
-  border: var(--border);
   background: var(--bg-blue);
+}
+
+.title {
+  padding: 8px 16px;
+  border: var(--border);
+  font-size: var(--size-title);
+}
+
+.buttons {
+  height: var(--height-button);
+  display: flex;
+  color: var(--text-gray);
+}
+
+.button {
+  flex-grow: 1;
+  border: var(--border);
+  background: var(--bg-gray);
+}
+
+.selected {
+  background: var(--bg-blue);
+  color: var(--text-black);
 }

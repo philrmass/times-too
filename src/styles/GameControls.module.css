@@ -1,8 +1,8 @@
 .main {
-  height: 100px;
+  height: 94px;
   background: var(--bg-blue);
-  display: flex;
-  justify-content: stretch;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   font-size: var(--size-number-pad);
 }
 
@@ -20,6 +20,6 @@
   background: var(--bg-green);
 }
 
-.quit{
+.stop {
   background: var(--bg-red);
 }

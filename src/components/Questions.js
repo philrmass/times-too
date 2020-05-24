@@ -7,11 +7,30 @@ function Questions({
   questions,
   setQuestions,
 }) {
+  function buildButtons() {
+    return questionsOptions.map((option) => {
+      const selected = questions === option ? styles.selected : '';
+
+      return (
+        <button
+          className={`${styles.button} ${selected}`}
+          key={option}
+        >
+          {/*setQuestion*/}
+          {option}
+        </button>
+      );
+    });
+  }
+
   return (
-    <div className={styles.main}>Questions
-      <div>{JSON.stringify(questionsOptions)}</div>
-      <div>{JSON.stringify(questions)}</div>
-      <div>{typeof setQuestions}</div>
+    <div className={styles.main}>
+      <div className={styles.title}>
+        Questions Per Test
+      </div>
+      <div className={styles.buttons}>
+        {buildButtons()}
+      </div>
     </div>
   );
 }

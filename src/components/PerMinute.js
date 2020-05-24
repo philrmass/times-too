@@ -7,11 +7,30 @@ function PerMinute({
   perMinute,
   setPerMinute,
 }) {
+  function buildButtons() {
+    return perMinuteOptions.map((option) => {
+      const selected = perMinute === option ? styles.selected : '';
+
+      return (
+        <button
+          className={`${styles.button} ${selected}`}
+          key={option}
+        >
+          {/*setPerMinute*/}
+          {option}
+        </button>
+      );
+    });
+  }
+
   return (
-    <div className={styles.main}>PerMinute
-      <div>{JSON.stringify(perMinuteOptions)}</div>
-      <div>{JSON.stringify(perMinute)}</div>
-      <div>{typeof setPerMinute}</div>
+    <div className={styles.main}>
+      <div className={styles.title}>
+        Questions Per Minute
+      </div>
+      <div className={styles.buttons}>
+        {buildButtons()}
+      </div>
     </div>
   );
 }

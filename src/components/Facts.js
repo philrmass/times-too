@@ -7,11 +7,30 @@ function Facts({
   facts,
   setFacts,
 }) {
+  function buildButtons() {
+    return factsOptions.map((option) => {
+      const selected = facts.includes(option) ? styles.selected : '';
+
+      return (
+        <button
+          className={`${styles.button} ${selected}`}
+          key={option}
+        >
+          {/*setFacts*/}
+          {`${option}s`}
+        </button>
+      );
+    });
+  }
+
   return (
-    <div className={styles.main}>Facts
-      <div>{JSON.stringify(factsOptions)}</div>
-      <div>{JSON.stringify(facts)}</div>
-      <div>{typeof setFacts}</div>
+    <div className={styles.main}>
+      <div className={styles.title}>
+        Multiplication Facts
+      </div>
+      <div className={styles.buttons}>
+        {buildButtons()}
+      </div>
     </div>
   );
 }

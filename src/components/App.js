@@ -1,9 +1,8 @@
-//??? fix layout with version
-//??? fix start, practice buttons
-//??? make options buttons
+//??? make options buttons work
 //??? fix all start & stop states
-//??? how to stop timer on quit
 //??? add practice to game state
+//??? add results messages
+//??? add results problems
 //??? improve alignment of timer
 import React, { useReducer, useState } from 'react';
 import { useLocalStorage } from '../utilities/storage';
@@ -180,6 +179,10 @@ function App() {
     startTimer();
   }
 
+  function startPractice() {
+    console.log('START-PRACTICE');
+  }
+
   function stop() {
     setTimer((timer) => {
       clearTimeout(timer);
@@ -199,6 +202,7 @@ function App() {
         <GameControls
           isPractice={isPractice}
           isTest={isTest}
+          startPractice={startPractice}
           startTest={startTest}
           stop={stop}
         />
