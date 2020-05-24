@@ -1,7 +1,7 @@
 .main {
   height: 100%;
-  border: var(--border);
-  background: var(--bg-number-pad);
+  background: var(--bg-dark-gray);
+  color: var(--text-white);
   font-size: var(--size-number-pad);
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;

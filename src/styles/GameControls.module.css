@@ -1,5 +1,25 @@
 .main {
   height: 100px;
-  border: var(--border);
   background: var(--bg-blue);
+  display: flex;
+  justify-content: stretch;
+  font-size: var(--size-number-pad);
+}
+
+.button {
+  flex-grow: 1;
+  border: var(--border);
+}
+
+.button:disabled {
+  background: var(--bg-gray);
+  color: var(--text-gray);
+}
+
+.start {
+  background: var(--bg-green);
+}
+
+.quit{
+  background: var(--bg-red);
 }

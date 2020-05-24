@@ -9,7 +9,7 @@ function Game({
     <div className={styles.main}>
       Game
       <div>
-        {JSON.stringify(game)}
+        {JSON.stringify(game, null, 2)}
       </div>
     </div>
   );

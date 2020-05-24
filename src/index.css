@@ -1,6 +1,11 @@
 :root {
-  --bg-number-pad: #c8c8c8;
+  --bg-gray: #c8c8c8;
+  --bg-dark-gray: #505050;
+  --bg-red: #d88880;
+  --bg-green: #80d888;
   --bg-blue: #80a8d8;
+  --text-white: #e8e8e8;
+  --text-gray: #686868;
   --border: 1px solid white;
   --size-number-pad: 34px;
 }
