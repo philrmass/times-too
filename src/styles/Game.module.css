@@ -2,3 +2,25 @@
   height: 100%;
   white-space: pre;
 }
+
+.game {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.time {
+  color: green;
+}
+
+.problem {
+  color: blue;
+}
+
+.questions {
+  color: red;
+}
+
+.message {
+  margin-top: 50px;
+  color: purple;
+}
