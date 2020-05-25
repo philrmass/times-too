@@ -9,10 +9,12 @@
   --text-black: #181818;
   --text-red: #df0000;
   --text-green: #00df00;
+  --text-blue: #0000df;
   --border: 1px solid white;
   --size-time: 32px;
   --size-title: 24px;
   --size-problem: 76px;
+  --size-mini-problem: 18px;
   --size-message: 24px;
   --size-number-pad: 34px;
   --size-version: 12px;

@@ -39,6 +39,7 @@
   bottom: 16px;
   left: 0;
   width: 100%;
+  font-size: var(--size-message);
   display: flex;
   justify-content: center;
 }
@@ -79,8 +80,14 @@
   background: white;
   font-size: var(--size-message);
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
   white-space: pre;
+}
+
+.link {
+  color: var(--text-blue);
+  text-decoration: underline;
 }

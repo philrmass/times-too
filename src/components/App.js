@@ -1,8 +1,8 @@
-//??? add results messages
-//??? add results problems
+//??? fix logo
 //??? dont repeat the exact problem
 //??? improve alignment of timer
 //??? ask more of the hard ones
+//??? include 10+ if the fact
 import React, { useReducer, useState } from 'react';
 import { useLocalStorage } from '../utilities/storage';
 import Facts from './Facts';
@@ -40,7 +40,8 @@ function getInitMessage() {
   to just practice your facts
 
   Use the number keys on the right 
-  to enter your answer`;
+  to enter your answer
+  `;
 }
 
 function getResultsMessage(intro, state) {
@@ -108,7 +109,7 @@ function gameReducer(state, action) {
           question,
           problems,
           active: false,
-          message: getResultsMessage('Test complete', state),
+          message: getResultsMessage('Test complete', { ...state, problems }),
         };
       }
 
@@ -178,6 +179,7 @@ function App() {
   const perMinuteOptions = [4, 8, 12, 16, 20, 24];
   const [game, dispatch] = useReducer(gameReducer, initGame());
   const [, setTimer] = useState(null);
+  const [showResults, setShowResults] = useState(false);
   const [facts, setFacts] = useLocalStorage('TimesFacts', [2, 3, 4]);
   const [questions, setQuestions] = useLocalStorage('TimesQuestions', 10);
   const [perMinute, setPerMinute] = useLocalStorage('TimesPerMinute', 24);
@@ -232,6 +234,55 @@ function App() {
     dispatch({ type: 'submit' });
   }
 
+  function buildResults() {
+    if (!showResults) {
+      return null;
+    }
+
+    return (
+      <div className={styles.resultsPage}>
+        <div className={styles.results}>
+          {buildCloseLink()}
+          <div className={styles.problems}>
+            {game.problems.map((problem, index) => (
+              buildProblem(problem, index)
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  function buildProblem(problem, index) {
+    const style = problem.correct ? '' : styles.incorrect;
+
+    return (
+      <div
+        key={index}
+        className={`${styles.problem} ${style}`}
+        onClick={() => setShowResults(false)}
+      >
+        <div>{problem.first}</div>
+        <div>{`x ${problem.second}`}</div>
+        <div className={styles.line}></div>
+        <div className={styles.answer}>
+          {problem.answer}
+        </div>
+      </div>
+    );
+  }
+
+  function buildCloseLink() {
+    return (
+      <button
+        className={styles.link}
+        onClick={() => setShowResults(false)}
+      >
+        Close
+      </button>
+    );
+  }
+
   return (
     <div className={styles.page}>
       <div className={styles.leftColumn}>
@@ -252,6 +303,7 @@ function App() {
             isTest={isTest}
             game={game}
             version={version}
+            showResults={() => setShowResults(true)}
           />
         </div>
       </div>
@@ -274,6 +326,7 @@ function App() {
           />
         </div>
       </div>
+      {buildResults()}
     </div>
   );
 }

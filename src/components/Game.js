@@ -6,6 +6,7 @@ function Game({
   isTest,
   game,
   version,
+  showResults,
 }) {
   function buildTime() {
     if (!isTest) {
@@ -85,11 +86,27 @@ function Game({
       return null;
     }
 
-    //??? if problems, add results link
     return (
       <div className={styles.message}>
         {game.message}
-        | P={game.problems.length}
+        {buildResultsLink()}
+      </div>
+    );
+  }
+
+  function buildResultsLink() {
+    if (game.problems.length < 1) {
+      return null;
+    }
+
+    return (
+      <div>
+        <button
+          className={styles.link}
+          onClick={showResults}
+        >
+          Show your results
+        </button>
       </div>
     );
   }
@@ -120,6 +137,7 @@ Game.propTypes = {
   isTest: PropTypes.bool.isRequired,
   game: PropTypes.object.isRequired,
   version: PropTypes.string.isRequired,
+  showResults: PropTypes.func.isRequired,
 };
 
 export default Game;

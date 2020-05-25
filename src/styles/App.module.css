@@ -1,4 +1,5 @@
 .page {
+  position: relative;
   height: 100vh;
   display: flex;
   border: var(--border);
@@ -18,4 +19,51 @@
 
 .main {
   flex-grow: 1;
+}
+
+.resultsPage {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  padding: 32px;
+  background: #20202080;
+}
+
+.results {
+  height: 100%;
+  padding: 16px;
+  background: white;
+}
+
+.link {
+  color: var(--text-blue);
+  text-decoration: underline;
+  margin-bottom: 16px;
+}
+
+.problems {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.problem {
+  margin: 8px 16px;
+  white-space: pre;
+  text-align: right;
+  font-size: var(--size-mini-problem);
+  font-size: 20px;
+}
+
+.line {
+  border-bottom: 2px solid currentColor;
+}
+
+.answer {
+  margin-top: 4px;
+}
+
+.incorrect {
+  color: var(--text-red);
 }
