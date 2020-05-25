@@ -13,10 +13,10 @@ function PerMinute({
 
       return (
         <button
-          className={`${styles.button} ${selected}`}
           key={option}
+          className={`${styles.button} ${selected}`}
+          onClick={() => setPerMinute(option)}
         >
-          {/*setPerMinute*/}
           {option}
         </button>
       );

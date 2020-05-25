@@ -11,12 +11,20 @@ function Facts({
     return factsOptions.map((option) => {
       const selected = facts.includes(option) ? styles.selected : '';
 
+      function toggleFact(fact) {
+        if (facts.includes(fact)) {
+          setFacts(facts.filter((value) => value !== fact));
+        } else {
+          setFacts([...facts, fact]);
+        }
+      }
+
       return (
         <button
-          className={`${styles.button} ${selected}`}
           key={option}
+          className={`${styles.button} ${selected}`}
+          onClick={() => toggleFact(option)}
         >
-          {/*setFacts*/}
           {`${option}s`}
         </button>
       );

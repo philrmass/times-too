@@ -36,13 +36,45 @@ function Game({
   }
 
   function buildProblem() {
+    let style = '';
+    let first = game.first;
+    let second = game.second;
+    let input = game.input;
+
+    if (game.isPractice && game.problem) {
+      style = game.problem.correct ? styles.correct : styles.incorrect;
+      first = game.problem.first;
+      second = game.problem.second;
+      input = `${game.problem.answer}`;
+    }
+
     return (
-      <div className={styles.problem}>
-        <div>{game.first}</div>
-        <div>{`x ${game.second}`}</div>
+      <div className={`${styles.problem} ${style}`}>
+        <div>{first}</div>
+        <div>{`x ${second}`}</div>
         <div className={styles.line}></div>
         <div className={styles.answer}>
-          {game.input || ' '}
+          {input || ' '}
+        </div>
+      </div>
+    );
+  }
+
+  function buildStatus() {
+    if (!game.isPractice) {
+      return null;
+    }
+
+    let text = '';
+    if (game.problems.length > 0) {
+      const correct = game.problems.filter((problem) => problem.correct).length;
+      text = `${correct} of ${game.problems.length} correct`;
+    }
+
+    return (
+      <div className={styles.status}>
+        <div>
+          {text}
         </div>
       </div>
     );
@@ -53,9 +85,11 @@ function Game({
       return null;
     }
 
+    //??? if problems, add results link
     return (
       <div className={styles.message}>
         {game.message}
+        | P={game.problems.length}
       </div>
     );
   }
@@ -74,6 +108,7 @@ function Game({
         {buildTime()}
         {buildProblem()}
         {buildQuestions()}
+        {buildStatus()}
         {buildVersion()}
       </div>
       {buildMessage()}

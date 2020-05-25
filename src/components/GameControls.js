@@ -10,7 +10,7 @@ function GameControls({
   stop,
 }) {
   function buildPracticeButton() {
-    const text = isPractice ? 'Stop' : 'Practice';
+    const text = isPractice ? 'Done' : 'Practice';
     const action = isPractice ? stop : startPractice;
     const style = isPractice ? styles.stop : styles.start;
 
@@ -26,7 +26,7 @@ function GameControls({
   }
 
   function buildTestButton() {
-    const text = isTest ? 'Stop' : 'Start Test';
+    const text = isTest ? 'Quit' : 'Start Test';
     const action = isTest ? stop : startTest;
     const style = isTest ? styles.stop : styles.start;
 

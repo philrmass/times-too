@@ -1,9 +1,8 @@
-//??? make options buttons work
-//??? fix all start & stop states
-//??? add practice to game state
 //??? add results messages
 //??? add results problems
+//??? dont repeat the exact problem
 //??? improve alignment of timer
+//??? ask more of the hard ones
 import React, { useReducer, useState } from 'react';
 import { useLocalStorage } from '../utilities/storage';
 import Facts from './Facts';
@@ -14,10 +13,6 @@ import PerMinute from './PerMinute';
 import Questions from './Questions';
 import styles from '../styles/App.module.css';
 
-function allFacts() {
-  return [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-}
-
 function initGame() {
   return {
     facts: [],
@@ -27,7 +22,10 @@ function initGame() {
     second: 0,
     input: '',
     problems: [],
+    problem: null,
     remaining: 0,
+    active: false,
+    isPractice: false,
     message: getInitMessage(),
   };
 }
@@ -45,9 +43,19 @@ function getInitMessage() {
   to enter your answer`;
 }
 
+function getResultsMessage(intro, state) {
+  const correct = state.problems.filter((problem) => problem.correct).length;
+  const total = state.isPractice ? state.problems.length : state.questions;
+
+  return `${intro}
+
+  You got ${correct} of ${total} questions correct
+  `;
+}
+
 function gameReducer(state, action) {
   switch (action.type) {
-    case 'test': {
+    case 'startTest': {
       const [first, second] = pickProblem(action.facts);
       return {
         ...initGame(),
@@ -55,6 +63,20 @@ function gameReducer(state, action) {
         questions: action.questions,
         first,
         second,
+        active: true,
+        message: '',
+      };
+    }
+    case 'startPractice': {
+      const [first, second] = pickProblem(action.facts);
+      return {
+        ...initGame(),
+        facts: action.facts,
+        questions: action.questions,
+        first,
+        second,
+        active: true,
+        isPractice: true,
         message: '',
       };
     }
@@ -80,13 +102,13 @@ function gameReducer(state, action) {
       const problems = [...state.problems, problem];
 
       const question = state.question + 1;
-      if (question >= state.questions) {
-        const message = 'You are done'; //??? results message
+      if (!state.isPractice && question >= state.questions) {
         return {
           ...state,
           question,
           problems,
-          message,
+          active: false,
+          message: getResultsMessage('Test complete', state),
         };
       }
 
@@ -98,14 +120,21 @@ function gameReducer(state, action) {
         second,
         input: '',
         problems,
+        problem: state.isPractice ? problem : null,
       };
     }
+    case 'next':
+      return {
+        ...state,
+        problem: null,
+      };
     case 'setTime':
-      if (action.remaining <= 0) {
+      if (state.active && !state.isPractice && action.remaining <= 0) {
         return {
           ...state,
           remaining: 0,
-          message: 'Time is up', //??? results message
+          active: false,
+          message: getResultsMessage('Time is up', state),
         };
       }
 
@@ -113,21 +142,25 @@ function gameReducer(state, action) {
         ...state,
         remaining: action.remaining,
       };
-    case 'stop':
+    case 'stop': {
+      const type = state.isPractice ? 'Practice' : 'Test';
+
       return {
         ...state,
         remaining: 0,
-        message: 'You quit', //??? quit, results message
+        active: false,
+        message: getResultsMessage(`${type} stopped`, state),
       };
+    }
     default:
       return state;
   }
 }
 
 function pickProblem(facts) {
-  const all = allFacts();
+  const others = [2, 3, 4, 5, 6, 7, 8, 9];
   const fact = pick(facts);
-  const other = pick(all);
+  const other = pick(others);
   const order = pick([true, false]);
 
   return order ? [fact, other] : [other, fact];
@@ -140,7 +173,7 @@ function pick(values) {
 
 function App() {
   const version = '0.2';
-  const factsOptions = allFacts();
+  const factsOptions = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
   const questionsOptions = [10, 20, 40, 80];
   const perMinuteOptions = [4, 8, 12, 16, 20, 24];
   const [game, dispatch] = useReducer(gameReducer, initGame());
@@ -148,8 +181,8 @@ function App() {
   const [facts, setFacts] = useLocalStorage('TimesFacts', [2, 3, 4]);
   const [questions, setQuestions] = useLocalStorage('TimesQuestions', 10);
   const [perMinute, setPerMinute] = useLocalStorage('TimesPerMinute', 24);
-  const isPractice = false;
-  const isTest = game.remaining > 0;
+  const isPractice = game.active && game.isPractice;
+  const isTest = game.active && !game.isPractice;
 
   function startTimer() {
     const msPerS = 1000;
@@ -175,12 +208,12 @@ function App() {
   }
 
   function startTest() {
-    dispatch({ type: 'test', facts, questions });
+    dispatch({ type: 'startTest', facts, questions });
     startTimer();
   }
 
   function startPractice() {
-    console.log('START-PRACTICE');
+    dispatch({ type: 'startPractice', facts, questions });
   }
 
   function stop() {
@@ -189,6 +222,14 @@ function App() {
       return null;
     });
     dispatch({ type: 'stop' });
+  }
+
+  function submit() {
+    if (isPractice) {
+      const displayTime = 1500;
+      setTimeout(() => dispatch({ type: 'next' }), displayTime);
+    }
+    dispatch({ type: 'submit' });
   }
 
   return (
@@ -229,7 +270,7 @@ function App() {
           <NumberPad
             input={(value) => dispatch({ type: 'input', value })}
             clear={() => dispatch({ type: 'clear' })}
-            submit={() => dispatch({ type: 'submit' })}
+            submit={submit}
           />
         </div>
       </div>

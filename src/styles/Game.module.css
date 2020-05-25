@@ -34,8 +34,25 @@
   display: inline-block;
 }
 
+.status {
+  position: absolute;
+  bottom: 16px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.correct {
+  color: var(--text-green);
+}
+
+.incorrect {
+  color: var(--text-red);
+}
+
 .line {
-  border-bottom: 5px solid var(--text-black);
+  border-bottom: 5px solid currentColor;
 }
 
 .answer {
