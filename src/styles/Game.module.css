@@ -34,16 +34,6 @@
   display: inline-block;
 }
 
-.status {
-  position: absolute;
-  bottom: 16px;
-  left: 0;
-  width: 100%;
-  font-size: var(--size-message);
-  display: flex;
-  justify-content: center;
-}
-
 .correct {
   color: var(--text-green);
 }

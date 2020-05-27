@@ -1,0 +1,32 @@
+.main {
+}
+
+.header {
+  padding-left: 0.5em;
+  border: var(--border);
+  line-height: 2rem;
+  background: var(--bg-gray);
+}
+
+.link {
+  color: var(--text-blue);
+  text-decoration: underline;
+}
+
+.bottom {
+  position: relative
+}
+
+.options {
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: var(--margin-3);
+  background: var(--bg-white);
+}
+
+.option {
+  margin: var(--margin-3);
+}

@@ -1,7 +1,5 @@
 //??? fix logo
-//??? js vh units
-//??? red/blue layout: web, ipad, phone
-//??? single font size, then em
+//??? fix options
 //??? dont repeat the exact problem
 //??? improve alignment of timer
 //??? ask more of the hard ones
@@ -9,12 +7,10 @@
 //??? analyze tests for hard-problem frequency
 import React, { useReducer, useState } from 'react';
 import { useLocalStorage } from '../utilities/storage';
-import Facts from './Facts';
 import Game from './Game';
 import GameControls from './GameControls';
 import NumberPad from './NumberPad';
-import PerMinute from './PerMinute';
-import Questions from './Questions';
+import Options from './Options';
 import styles from '../styles/App.module.css';
 
 function initGame() {
@@ -177,7 +173,7 @@ function pick(values) {
 }
 
 function App() {
-  const version = '0.4.0';
+  const version = '0.4.2';
   const factsOptions = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
   const questionsOptions = [10, 20, 40, 80];
   const perMinuteOptions = [4, 8, 12, 16, 20, 24];
@@ -298,11 +294,22 @@ function App() {
   return (
     <div className={styles.page}>
       <div className={styles.header}>
-        Options
+        <Options
+          factsOptions={factsOptions}
+          questionsOptions={questionsOptions}
+          perMinuteOptions={perMinuteOptions}
+          facts={facts}
+          questions={questions}
+          perMinute={perMinute}
+          setFacts={setFacts}
+          setQuestions={setQuestions}
+          setPerMinute={setPerMinute}
+        />
       </div>
       <div className={styles.main}>
         <div className={styles.first}>
           <Game
+            isPractice={isPractice}
             isTest={isTest}
             game={game}
             showResults={() => setShowResults(true)}
@@ -329,35 +336,6 @@ function App() {
       {buildResults()}
     </div>
   );
-  /*
-  return (
-    <div className={styles.page}>
-      <div className={styles.leftColumn}>
-        <Facts
-          factsOptions={factsOptions}
-          facts={facts}
-          setFacts={setFacts}
-        />
-        <div className={styles.main}>
-        </div>
-      </div>
-      <div className={styles.rightColumn}>
-        <Questions
-          questionsOptions={questionsOptions}
-          questions={questions}
-          setQuestions={setQuestions}
-        />
-        <PerMinute
-          perMinuteOptions={perMinuteOptions}
-          perMinute={perMinute}
-          setPerMinute={setPerMinute}
-        />
-        <div className={styles.main}>
-        </div>
-      </div>
-    </div>
-  );
-  */
 }
 
 export default App;

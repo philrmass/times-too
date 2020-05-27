@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styles from '../styles/Game.module.css';
 
 function Game({
+  isPractice,
   isTest,
   game,
   showResults,
@@ -24,13 +25,18 @@ function Game({
   }
 
   function buildQuestions() {
-    if (!isTest) {
-      return <div></div>;
+    let text = '';
+    if (isPractice && game.problems.length > 0) {
+      const correct = game.problems.filter((problem) => problem.correct).length;
+      const total = game.problems.length;
+      text = `${correct}/${total} correct`;
+    } else if (isTest) {
+      text = `${game.question + 1}/${game.questions}`;
     }
 
     return (
       <div className={styles.questions}>
-        {game.question + 1}/{game.questions}
+        {text}
       </div>
     );
   }
@@ -55,26 +61,6 @@ function Game({
         <div className={styles.line}></div>
         <div className={styles.answer}>
           {input || ' '}
-        </div>
-      </div>
-    );
-  }
-
-  function buildStatus() {
-    if (!game.isPractice) {
-      return null;
-    }
-
-    let text = '';
-    if (game.problems.length > 0) {
-      const correct = game.problems.filter((problem) => problem.correct).length;
-      text = `${correct} of ${game.problems.length} correct`;
-    }
-
-    return (
-      <div className={styles.status}>
-        <div>
-          {text}
         </div>
       </div>
     );
@@ -116,7 +102,6 @@ function Game({
         {buildTime()}
         {buildProblem()}
         {buildQuestions()}
-        {buildStatus()}
       </div>
       {buildMessage()}
     </div>
@@ -124,6 +109,7 @@ function Game({
 }
 
 Game.propTypes = {
+  isPractice: PropTypes.bool.isRequired,
   isTest: PropTypes.bool.isRequired,
   game: PropTypes.object.isRequired,
   showResults: PropTypes.func.isRequired,
