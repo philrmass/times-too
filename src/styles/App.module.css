@@ -62,7 +62,6 @@
   text-align: right;
 }
 
-/*
 .resultsPage {
   position: absolute;
   left: 0;
@@ -109,4 +108,3 @@
 .incorrect {
   color: var(--text-red);
 }
-*/

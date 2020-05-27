@@ -177,7 +177,7 @@ function pick(values) {
 }
 
 function App() {
-  const version = '0.3.20';
+  const version = '0.4.0';
   const factsOptions = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
   const questionsOptions = [10, 20, 40, 80];
   const perMinuteOptions = [4, 8, 12, 16, 20, 24];
@@ -302,6 +302,11 @@ function App() {
       </div>
       <div className={styles.main}>
         <div className={styles.first}>
+          <Game
+            isTest={isTest}
+            game={game}
+            showResults={() => setShowResults(true)}
+          />
         </div>
         <div className={styles.second}>
           <GameControls
@@ -321,6 +326,7 @@ function App() {
       <div className={styles.footer}>
         {buildVersion()}
       </div>
+      {buildResults()}
     </div>
   );
   /*
@@ -333,11 +339,6 @@ function App() {
           setFacts={setFacts}
         />
         <div className={styles.main}>
-          <Game
-            isTest={isTest}
-            game={game}
-            showResults={() => setShowResults(true)}
-          />
         </div>
       </div>
       <div className={styles.rightColumn}>
@@ -354,7 +355,6 @@ function App() {
         <div className={styles.main}>
         </div>
       </div>
-      {buildResults()}
     </div>
   );
   */

@@ -2,8 +2,6 @@
   --bg-white: #ffffff;
   --bg-gray: #b8b8b8;
   --bg-dark-gray: #505050;
-  --bg-red: #d88880;
-  --bg-green: #80d888;
   --bg-blue: #80a8d8;
   --text-white: #e8e8e8;
   --text-gray: #505050;
@@ -12,14 +10,13 @@
   --text-green: #00df00;
   --text-blue: #0000df;
   --border: 1px solid white;
-  --size-problem: 1rem; /* 76px */
-  --size-number-pad: 1rem; /* 34px */
-  --size-time: 1rem; /* 32px */
-  --size-message: 1rem; /* 24px */
-  --size-title: 1rem; /* 24px */
-  --size-mini-problem: 1rem; /* 18px */
-  --size-version: 1rem; /* 12px */
-  --height-button: 3em;
+  --size-problem: 4rem;
+  --size-number-pad: 1rem;
+  --size-time: 1rem;
+  --size-message: 1rem;
+  --size-title: 1rem;
+  --size-mini-problem: 1rem;
+  --size-version: 1rem;
   --margin-2: 0.5rem;
   --margin-3: 1.0rem;
   --margin-4: 1.5rem;
