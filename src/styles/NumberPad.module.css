@@ -1,13 +1,18 @@
 .main {
-  height: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
   background: var(--bg-dark-gray);
   color: var(--text-white);
   font-size: var(--size-number-pad);
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .button {
+  flex: 1 33.33%;
   border: var(--border);
 }
 

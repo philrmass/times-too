@@ -5,7 +5,6 @@ import styles from '../styles/Game.module.css';
 function Game({
   isTest,
   game,
-  version,
   showResults,
 }) {
   function buildTime() {
@@ -111,14 +110,6 @@ function Game({
     );
   }
 
-  function buildVersion() {
-    return (
-      <div className={styles.version}>
-        version {version}
-      </div>
-    );
-  }
-
   return (
     <div className={styles.main}>
       <div className={styles.game}>
@@ -126,7 +117,6 @@ function Game({
         {buildProblem()}
         {buildQuestions()}
         {buildStatus()}
-        {buildVersion()}
       </div>
       {buildMessage()}
     </div>
@@ -136,7 +126,6 @@ function Game({
 Game.propTypes = {
   isTest: PropTypes.bool.isRequired,
   game: PropTypes.object.isRequired,
-  version: PropTypes.string.isRequired,
   showResults: PropTypes.func.isRequired,
 };
 

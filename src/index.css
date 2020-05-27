@@ -1,34 +1,35 @@
 :root {
-  --bg-gray: #c8c8c8;
+  --bg-white: #ffffff;
+  --bg-gray: #b8b8b8;
   --bg-dark-gray: #505050;
   --bg-red: #d88880;
   --bg-green: #80d888;
   --bg-blue: #80a8d8;
   --text-white: #e8e8e8;
-  --text-gray: #686868;
-  --text-black: #181818;
+  --text-gray: #505050;
+  --text-black: #080808;
   --text-red: #df0000;
   --text-green: #00df00;
   --text-blue: #0000df;
   --border: 1px solid white;
-  --size-time: 32px;
-  --size-title: 24px;
-  --size-problem: 76px;
-  --size-mini-problem: 18px;
-  --size-message: 24px;
-  --size-number-pad: 34px;
-  --size-version: 12px;
+  --size-problem: 1rem; /* 76px */
+  --size-number-pad: 1rem; /* 34px */
+  --size-time: 1rem; /* 32px */
+  --size-message: 1rem; /* 24px */
+  --size-title: 1rem; /* 24px */
+  --size-mini-problem: 1rem; /* 18px */
+  --size-version: 1rem; /* 12px */
   --height-button: 3em;
+  --margin-2: 8px;
 }
 
 * {
   box-sizing: border-box;
 }
 
-body {
+body, html {
   height: 100%;
+  width: 100%;
   margin: 0;
   padding: 0;
-  color: var(--text-black);
-  font-family: "Helvetica", sans-serif;
 }

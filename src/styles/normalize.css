@@ -1,6 +1,7 @@
 button {
   padding: 0;
   border: none;
+  margin: 0;
   background-color: transparent;
   color: inherit;
   font: inherit;
@@ -12,6 +13,7 @@ button {
 input {
   padding: 0;
   border: none;
+  margin: 0;
   background-color: transparent;
   color: inherit;
   font: inherit;

@@ -1,8 +1,12 @@
 //??? fix logo
+//??? js vh units
+//??? red/blue layout: web, ipad, phone
+//??? single font size, then em
 //??? dont repeat the exact problem
 //??? improve alignment of timer
 //??? ask more of the hard ones
-//??? include 10+ if the fact
+//??? include 10+ if the fact is > 9
+//??? analyze tests for hard-problem frequency
 import React, { useReducer, useState } from 'react';
 import { useLocalStorage } from '../utilities/storage';
 import Facts from './Facts';
@@ -173,7 +177,7 @@ function pick(values) {
 }
 
 function App() {
-  const version = '0.2';
+  const version = '0.3.13';
   const factsOptions = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
   const questionsOptions = [10, 20, 40, 80];
   const perMinuteOptions = [4, 8, 12, 16, 20, 24];
@@ -283,6 +287,36 @@ function App() {
     );
   }
 
+  function buildVersion() {
+    return (
+      <div className={styles.version}>
+        version {version}
+      </div>
+    );
+  }
+
+  return (
+    <div className={styles.page}>
+      <div className={styles.header}>
+        Options
+      </div>
+      <div className={styles.main}>
+        <div className={styles.first}>
+        </div>
+        <div className={styles.second}>
+          <NumberPad
+            input={(value) => dispatch({ type: 'input', value })}
+            clear={() => dispatch({ type: 'clear' })}
+            submit={submit}
+          />
+        </div>
+      </div>
+      <div className={styles.footer}>
+        {buildVersion()}
+      </div>
+    </div>
+  );
+  /*
   return (
     <div className={styles.page}>
       <div className={styles.leftColumn}>
@@ -302,7 +336,6 @@ function App() {
           <Game
             isTest={isTest}
             game={game}
-            version={version}
             showResults={() => setShowResults(true)}
           />
         </div>
@@ -319,16 +352,12 @@ function App() {
           setPerMinute={setPerMinute}
         />
         <div className={styles.main}>
-          <NumberPad
-            input={(value) => dispatch({ type: 'input', value })}
-            clear={() => dispatch({ type: 'clear' })}
-            submit={submit}
-          />
         </div>
       </div>
       {buildResults()}
     </div>
   );
+  */
 }
 
 export default App;

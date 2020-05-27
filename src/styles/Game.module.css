@@ -61,15 +61,6 @@
   white-space: pre;
 }
 
-.version {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  margin-right: 8px;
-  color: var(--text-gray);
-  font-size: var(--size-version);
-}
-
 .message {
   position: absolute;
   top: 0;
