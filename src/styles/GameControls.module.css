@@ -1,13 +1,11 @@
 .main {
-  height: 94px;
-  background: var(--bg-blue);
   display: grid;
   grid-template-columns: 1fr 1fr;
   font-size: var(--size-number-pad);
 }
 
 .button {
-  flex-grow: 1;
+  padding: var(--margin-4);
   border: var(--border);
 }
 
@@ -17,9 +15,9 @@
 }
 
 .start {
-  background: var(--bg-green);
+  background: var(--bg-blue);
 }
 
 .stop {
-  background: var(--bg-red);
+  background: var(--bg-white);
 }

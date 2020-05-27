@@ -177,7 +177,7 @@ function pick(values) {
 }
 
 function App() {
-  const version = '0.3.13';
+  const version = '0.3.20';
   const factsOptions = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
   const questionsOptions = [10, 20, 40, 80];
   const perMinuteOptions = [4, 8, 12, 16, 20, 24];
@@ -304,6 +304,13 @@ function App() {
         <div className={styles.first}>
         </div>
         <div className={styles.second}>
+          <GameControls
+            isPractice={isPractice}
+            isTest={isTest}
+            startPractice={startPractice}
+            startTest={startTest}
+            stop={stop}
+          />
           <NumberPad
             input={(value) => dispatch({ type: 'input', value })}
             clear={() => dispatch({ type: 'clear' })}
@@ -324,13 +331,6 @@ function App() {
           factsOptions={factsOptions}
           facts={facts}
           setFacts={setFacts}
-        />
-        <GameControls
-          isPractice={isPractice}
-          isTest={isTest}
-          startPractice={startPractice}
-          startTest={startTest}
-          stop={stop}
         />
         <div className={styles.main}>
           <Game

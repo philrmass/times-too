@@ -1,9 +1,5 @@
 .main {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
+  flex-grow: 1;
   background: var(--bg-dark-gray);
   color: var(--text-white);
   font-size: var(--size-number-pad);
@@ -14,6 +10,12 @@
 .button {
   flex: 1 33.33%;
   border: var(--border);
+}
+
+@media (orientation: portrait) {
+  .button {
+    flex: 1 25.0%;
+  }
 }
 
 .clear {

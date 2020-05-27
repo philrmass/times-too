@@ -4,13 +4,6 @@
   bottom: 0;
   right: 0;
   left: 0;
-  /*
-  position: relative;
-  height: 100vh;
-  calc(100 * var(--vh, 1vh));
-  width: 100%;
-  width: 100vw;
-  */
   font-family: Arial, sans-serif;
   display: flex;
   flex-direction: column;
@@ -47,6 +40,8 @@
 .second {
   position: relative;
   flex: 1 50%;
+  display: flex;
+  flex-direction: column;
 }
 
 .thing {
