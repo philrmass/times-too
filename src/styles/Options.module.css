@@ -15,6 +15,11 @@
   text-decoration: underline;
 }
 
+.link:disabled {
+  color: var(--text-gray);
+  text-decoration: none;
+}
+
 .summary {
   padding-left: var(--margin-3);
   font-size: var(--size-summary);

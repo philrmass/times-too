@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styles from '../styles/Options.module.css';
 
 function Options({
+  active,
   factsOptions,
   questionsOptions,
   perMinuteOptions,
@@ -100,6 +101,7 @@ function Options({
     <div className={styles.main}>
       <div className={styles.header}>
         <button
+          disabled={active}
           className={styles.link}
           onClick={() => setShow((s) => !s)}
         >
@@ -115,12 +117,13 @@ function Options({
 }
 
 Options.propTypes = {
-  factsOptions: PropTypes.arrayOf(PropTypes.number),
-  questionsOptions: PropTypes.arrayOf(PropTypes.number),
-  perMinuteOptions: PropTypes.arrayOf(PropTypes.number),
-  facts: PropTypes.arrayOf(PropTypes.number),
-  questions: PropTypes.number,
-  perMinute: PropTypes.number,
+  active: PropTypes.bool.isRequired,
+  factsOptions: PropTypes.arrayOf(PropTypes.number).isRequired,
+  questionsOptions: PropTypes.arrayOf(PropTypes.number).isRequired,
+  perMinuteOptions: PropTypes.arrayOf(PropTypes.number).isRequired,
+  facts: PropTypes.arrayOf(PropTypes.number).isRequired,
+  questions: PropTypes.number.isRequired,
+  perMinute: PropTypes.number.isRequired,
   setFacts: PropTypes.func.isRequired,
   setQuestions: PropTypes.func.isRequired,
   setPerMinute: PropTypes.func.isRequired,

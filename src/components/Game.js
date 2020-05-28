@@ -9,12 +9,12 @@ function Game({
   showResults,
 }) {
   function buildTime() {
-    if (!isTest) {
+    if (!isPractice && !isTest) {
       return <div></div>;
     }
 
-    const mins = Math.floor(game.remaining / 60);
-    const secs = game.remaining - (60 * mins);
+    const mins = Math.floor(game.time / 60);
+    const secs = game.time - (60 * mins);
     const secsStr = `0${secs}`.slice(-2);
 
     return (
@@ -28,10 +28,25 @@ function Game({
     let text = '';
     if (isPractice && game.problems.length > 0) {
       const correct = game.problems.filter((problem) => problem.correct).length;
-      const total = game.problems.length;
-      text = `${correct}/${total} correct`;
+      const incorrect = game.problems.length - correct;
+
+      return (
+        <div className={styles.questions}>
+          <span className={styles.correct}>
+            {correct}
+          </span>
+          <span> | </span>
+          <span className={styles.incorrect}>
+            {incorrect}
+          </span>
+        </div>
+      );
     } else if (isTest) {
-      text = `${game.question + 1}/${game.questions}`;
+      return (
+        <div className={styles.questions}>
+          {`${game.question}/${game.questions}`}
+        </div>
+      );
     }
 
     return (
@@ -51,7 +66,7 @@ function Game({
       style = game.problem.correct ? styles.correct : styles.incorrect;
       first = game.problem.first;
       second = game.problem.second;
-      input = `${game.problem.answer}`;
+      input = game.problem.answer ? `${game.problem.answer}` : '';
     }
 
     return (
@@ -90,7 +105,7 @@ function Game({
           className={styles.link}
           onClick={showResults}
         >
-          Show your results
+          See your results
         </button>
       </div>
     );

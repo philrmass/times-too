@@ -71,7 +71,8 @@
 .results {
   height: 100%;
   padding: 16px;
-  background: white;
+  background: var(--bg-white);
+  overflow-y: scroll;
 }
 
 .link {
@@ -99,6 +100,12 @@
 
 .answer {
   margin-top: 4px;
+}
+
+.time {
+  margin: var(--margin-2) 0;
+  color: var(--text-gray);
+  font-size: var(--size-mini-time);
 }
 
 .incorrect {
