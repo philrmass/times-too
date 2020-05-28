@@ -218,7 +218,7 @@ function pick(values) {
 }
 
 function App() {
-  const version = '0.5';
+  const version = '0.5.1';
   const factsOptions = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
   const questionsOptions = [10, 20, 40, 80];
   const perMinuteOptions = [4, 8, 12, 16, 20, 24];

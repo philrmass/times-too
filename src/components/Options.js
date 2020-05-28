@@ -105,7 +105,7 @@ function Options({
           className={styles.link}
           onClick={() => setShow((s) => !s)}
         >
-          Options
+          {show ? 'Close' : 'Options'}
         </button>
         {buildOptionsSummary()}
       </div>
