@@ -1,10 +1,13 @@
-//??? fix logo
-//??? fix options
+//??? improve results text: x right, y wrong, z questions in w minutes, a questions per minute
+//??? pass -- fail numbers
+//??? add a timer to practice
+//??? fix results scroll
+//??? time results, add ms time to problem
 //??? dont repeat the exact problem
 //??? improve alignment of timer
-//??? ask more of the hard ones
 //??? include 10+ if the fact is > 9
 //??? analyze tests for hard-problem frequency
+//??? ask more of the hard ones
 import React, { useReducer, useState } from 'react';
 import { useLocalStorage } from '../utilities/storage';
 import Game from './Game';
@@ -180,9 +183,9 @@ function App() {
   const [game, dispatch] = useReducer(gameReducer, initGame());
   const [, setTimer] = useState(null);
   const [showResults, setShowResults] = useState(false);
-  const [facts, setFacts] = useLocalStorage('TimesFacts', [2, 3, 4]);
-  const [questions, setQuestions] = useLocalStorage('TimesQuestions', 10);
-  const [perMinute, setPerMinute] = useLocalStorage('TimesPerMinute', 24);
+  const [facts, setFacts] = useLocalStorage('TimesFacts', [2, 3, 4, 5, 6, 7, 8, 9]);
+  const [questions, setQuestions] = useLocalStorage('TimesQuestions', 80);
+  const [perMinute, setPerMinute] = useLocalStorage('TimesPerMinute', 16);
   const isPractice = game.active && game.isPractice;
   const isTest = game.active && !game.isPractice;
 

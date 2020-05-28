@@ -1,11 +1,13 @@
 .main {
+  user-select: none;
 }
 
 .header {
-  padding-left: 0.5em;
+  padding: var(--margin-1) var(--margin-2);
   border: var(--border);
   line-height: 2rem;
   background: var(--bg-gray);
+  display: flex;
 }
 
 .link {
@@ -13,7 +15,14 @@
   text-decoration: underline;
 }
 
-.bottom {
+.summary {
+  padding-left: var(--margin-3);
+  font-size: var(--size-summary);
+  line-height: calc(1.2 * var(--size-summary));
+  white-space: pre;
+}
+
+.belowHeader {
   position: relative
 }
 
@@ -23,10 +32,28 @@
   top: 0;
   left: 0;
   width: 100%;
-  padding: var(--margin-3);
+  padding: 0 var(--margin-3) var(--margin-4);
   background: var(--bg-white);
+  box-shadow: 0 20px 20px var(--shadow);
 }
 
-.option {
-  margin: var(--margin-3);
+.title {
+  margin: var(--margin-3) 0;
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.button {
+  width: 4.0rem;
+  padding: var(--margin-2) 0;
+  border: var(--border);
+  background: var(--bg-gray);
+}
+
+.selected {
+  background: var(--bg-blue);
+  color: var(--text-black);
 }

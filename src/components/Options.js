@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styles from '../styles/Options.module.css';
-import Facts from './Facts';
-import PerMinute from './PerMinute';
-import Questions from './Questions';
 
 function Options({
   factsOptions,
@@ -18,6 +15,28 @@ function Options({
 }) {
   const [show, setShow] = useState(false);
 
+  function toggleFact(fact) {
+    if (facts.includes(fact)) {
+      if (facts.length > 1) {
+        setFacts(facts.filter((value) => value !== fact));
+      }
+    } else {
+      setFacts([...facts, fact]);
+    }
+  }
+
+  function buildOptionsSummary() {
+    const sorted = facts.sort((a, b) => a - b);
+    const fText = sorted.map((f) => `${f}s, `).join('');
+    const qText = `${questions} questions, `;
+    const pText = `${perMinute} per minute`;
+    return (
+      <div className={styles.summary}>
+        {`${fText}\n${qText}${pText}`}
+      </div>
+    );
+  }
+
   function buildOptions() {
     if (!show) {
       return null;
@@ -25,29 +44,56 @@ function Options({
 
     return (
       <div className={styles.options}>
-        <div className={styles.option}>
-          <Facts
-            factsOptions={factsOptions}
-            facts={facts}
-            setFacts={setFacts}
-          />
+        {buildOption(
+          'Multiplication Facts',
+          facts,
+          factsOptions,
+          toggleFact,
+          's',
+        )}
+        {buildOption(
+          'Questions Per Test',
+          [questions],
+          questionsOptions,
+          setQuestions,
+        )}
+        {buildOption(
+          'Questions Per Minute',
+          [perMinute],
+          perMinuteOptions,
+          setPerMinute,
+        )}
+      </div>
+    );
+  }
+
+  function buildOption(name, values, options, update, suffix) {
+    return (
+      <div>
+        <div className={styles.title}>
+          {name}
         </div>
-        <div className={styles.option}>
-          <Questions
-            questionsOptions={questionsOptions}
-            questions={questions}
-            setQuestions={setQuestions}
-          />
-        </div>
-        <div className={styles.option}>
-          <PerMinute
-            perMinuteOptions={perMinuteOptions}
-            perMinute={perMinute}
-            setPerMinute={setPerMinute}
-          />
+        <div className={styles.buttons}>
+          {buildButtons(values, options, update, suffix)}
         </div>
       </div>
     );
+  }
+
+  function buildButtons(values, options, update, suffix = '') {
+    return options.map((option) => {
+      const selected = values.includes(option) ? styles.selected : '';
+
+      return (
+        <button
+          key={option}
+          className={`${styles.button} ${selected}`}
+          onClick={() => update(option)}
+        >
+          {`${option}${suffix}`}
+        </button>
+      );
+    });
   }
 
   return (
@@ -59,8 +105,9 @@ function Options({
         >
           Options
         </button>
+        {buildOptionsSummary()}
       </div>
-      <div className={styles.bottom}>
+      <div className={styles.belowHeader}>
         {buildOptions()}
       </div>
     </div>
