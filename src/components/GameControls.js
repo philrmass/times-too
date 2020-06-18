@@ -9,6 +9,12 @@ function GameControls({
   startTest,
   stop,
 }) {
+  function ignoreEnter(e) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+    }
+  }
+
   function buildPracticeButton() {
     const text = isPractice ? 'Done' : 'Practice';
     const action = isPractice ? stop : startPractice;
@@ -19,6 +25,8 @@ function GameControls({
         className={`${styles.button} ${style}`}
         disabled={isTest}
         onClick={action}
+        onKeyUp={ignoreEnter}
+        onKeyPress={ignoreEnter}
       >
         {text}
       </button>
@@ -35,6 +43,8 @@ function GameControls({
         className={`${styles.button} ${style}`}
         disabled={isPractice}
         onClick={action}
+        onKeyUp={ignoreEnter}
+        onKeyPress={ignoreEnter}
       >
         {text}
       </button>

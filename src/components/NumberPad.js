@@ -7,6 +7,12 @@ function NumberPad({
   clear,
   submit,
 }) {
+  function ignoreEnter(e) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+    }
+  }
+
   function buildNumberButtons() {
     const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
 
@@ -15,6 +21,8 @@ function NumberPad({
         key={number}
         className={styles.button}
         onClick={() => input(`${number}`)}
+        onKeyUp={ignoreEnter}
+        onKeyPress={ignoreEnter}
       >
         {number}
       </button>
@@ -27,12 +35,16 @@ function NumberPad({
       <button
         className={`${styles.button} ${styles.clear}`}
         onClick={clear}
+        onKeyUp={ignoreEnter}
+        onKeyPress={ignoreEnter}
       >
         Clear
       </button>
       <button
         className={`${styles.button} ${styles.ok}`}
         onClick={submit}
+        onKeyUp={ignoreEnter}
+        onKeyPress={ignoreEnter}
       >
         OK
       </button>

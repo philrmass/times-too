@@ -220,7 +220,7 @@ function pick(values) {
 }
 
 function App() {
-  const version = '0.5.1';
+  const version = '0.5.2';
   const factsOptions = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
   const questionsOptions = [10, 20, 40, 80];
   const perMinuteOptions = [4, 8, 12, 16, 20, 24];
@@ -289,6 +289,17 @@ function App() {
       return null;
     });
     dispatch({ type: 'stop' });
+  }
+
+  function handleKeyDown(key) {
+    const nums = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+    if (key === 'Enter') {
+      submit();
+    } else if (key === 'Space') {
+      dispatch({ type: 'clear' });
+    } else if (nums.includes(key)) {
+      dispatch({ type: 'input', value: key });
+    }
   }
 
   function submit() {
@@ -362,7 +373,10 @@ function App() {
   }
 
   return (
-    <div className={styles.page}>
+    <div
+      className={styles.page}
+      onKeyDown={(e) => handleKeyDown(e.key)}
+    >
       <div className={styles.header}>
         <Options
           active={game.active}
