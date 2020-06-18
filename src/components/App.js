@@ -11,6 +11,7 @@ function initGame() {
     facts: [],
     question: 0,
     questions: 0,
+    perMinute: 0,
     first: 0,
     second: 0,
     input: '',
@@ -71,6 +72,7 @@ function gameReducer(state, action) {
         ...initGame(),
         facts: action.facts,
         questions: action.questions,
+        perMinute: action.perMinute,
         first,
         second,
         timeMs: Date.now(),
@@ -272,7 +274,7 @@ function App() {
   }
 
   function startTest() {
-    dispatch({ type: 'startTest', facts, questions });
+    dispatch({ type: 'startTest', facts, questions, perMinute });
     countDown();
   }
 

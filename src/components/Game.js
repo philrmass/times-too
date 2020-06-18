@@ -13,15 +13,35 @@ function Game({
       return <div></div>;
     }
 
-    const mins = Math.floor(game.time / 60);
-    const secs = game.time - (60 * mins);
-    const secsStr = `0${secs}`.slice(-2);
+    let elapsed = '';
+    let left = '';
+
+    if (isPractice) {
+      elapsed = getTimeString(game.time);
+    } else if (isTest) {
+      const total = 60 * (game.questions / game.perMinute);
+      elapsed = getTimeString(total - game.time);
+      left = getTimeString(game.time);
+    }
 
     return (
       <div className={styles.time}>
-        {`${mins}:${secsStr}`}
+        <div>
+          { elapsed }
+        </div>
+        <div className={styles.left}>
+          { left && `${left} left` }
+        </div>
       </div>
     );
+  }
+
+  function getTimeString(time) {
+    const mins = Math.floor(time / 60);
+    const secs = time - (60 * mins);
+    const secsStr = `0${secs}`.slice(-2);
+
+    return `${mins}:${secsStr}`;
   }
 
   function buildQuestions() {
